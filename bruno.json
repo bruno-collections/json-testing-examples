@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Working with JSON",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,51 @@
+meta {
+  name: Get object keys
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "items": [
+      {
+        "orderID": "0000001211",
+        "orderInvoiceNo": "1234567",
+        "OrderBlocks": [
+          {
+            "onlLineId": 1,
+            "onlProductCode": "001"   
+          },
+          {
+            "onlLineId": 2,
+            "onlProductCode": "012"   
+          },{
+            "onlLineId": 3,
+            "onlProductCode": "013"   
+          },{
+            "onlLineId": 4,
+            "onlProductCode": "014"   
+          }
+        ]
+      }
+    ]
+  }
+}
+
+tests {
+  test("Flatten all lineNo arrays", () => {
+    const jsonData = res.getBody();
+    const blocks = jsonData.items?.[0]?.OrderBlocks;
+  
+    const allLineNos = blocks.flatMap(b => b.lineNo);
+  
+    console.log("All lineNos:", allLineNos);
+    expect(allLineNos.length).to.be.greaterThan(0);
+  });
+  
+}
